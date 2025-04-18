@@ -23,7 +23,7 @@ class Product:
         self.tags: List[str] = product["tags"]
 
 # Define the post_description endpoint
-@description.post("/description", summary="Get description for a product", operation_id="getDescription")
+@description.post("/description", summary="Get description for an electronics product", operation_id="getDescription")
 async def post_description(request: Request) -> JSONResponse:
     try:
         # Parse the request body and create a Product object
@@ -35,7 +35,8 @@ async def post_description(request: Request) -> JSONResponse:
         if useLocalLLM:
             print("Calling local LLM")
             
-            prompt = f"Describe this pet store product using joyful, playful, and enticing language.\nProduct name: {name}\ntags: {tags}\ndescription:\""
+            # Updated prompt for Best Buy electronics products
+            prompt = f"Describe this Best Buy electronics product using professional, informative, and enthusiastic language. Highlight its technical features, benefits, and best use cases.\nProduct name: {name}\ntags: {tags}\ndescription:\""
             temperature = 0.5
             top_p = 0.0
 
@@ -56,13 +57,6 @@ async def post_description(request: Request) -> JSONResponse:
             # remove all double quotes
             if "\"" in result:
                 result = result.replace("\"", "")
-
-            # # if first character is a double quote, remove it
-            # if result[0] == "\"":
-            #     result = result[1:]
-            # # if last character is a double quote, remove it
-            # if result[-1] == "\"":
-            #     result = result[:-1]
             
             print(result)
         else:
@@ -71,6 +65,7 @@ async def post_description(request: Request) -> JSONResponse:
             context: Any = kernel.create_new_context()
             context["name"] = name
             context["tags"] = tags
+            # We're reusing the semantic function but with new prompts optimized for electronics
             result: str = await descriptionFunction.invoke_async(context=context)
             if "error" in str(result).lower():
                 return Response(content=str(result), status_code=status.HTTP_401_UNAUTHORIZED)

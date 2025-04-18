@@ -1,27 +1,26 @@
 {
-    "schema": 1,
-    "description": "Generate description of a pet store supply product",
-    "type": "completion",
-    "completion": {
-      "max_tokens": 1000,
-      "temperature": 0.5,
-      "top_p": 0.0,
-      "presence_penalty": 0.0,
-      "frequency_penalty": 0.0
-    },
-    "input": {
-      "parameters": [
-        {
-          "name": "name",
-          "description": "Name of product to describe",
-          "defaultValue": ""
-        },
-        {
-            "name": "tags",
-            "description": "list of tags to describe the product",
-            "defaultValue": ""
-          }
-
-      ]
-    }
+  "schema": 1,
+  "description": "Generate professional and engaging product descriptions for Best Buy electronics products",
+  "type": "completion",
+  "completion": {
+    "max_tokens": 500,
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "presence_penalty": 0.6,
+    "frequency_penalty": 0.5
+  },
+  "input": {
+    "parameters": [
+      {
+        "name": "name",
+        "description": "The name of the electronics product",
+        "defaultValue": ""
+      },
+      {
+        "name": "tags",
+        "description": "A comma separated list of tags describing the electronics product",
+        "defaultValue": ""
+      }
+    ]
   }
+}

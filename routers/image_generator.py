@@ -15,7 +15,7 @@ class Product:
         self.description: List[str] = product["description"]
 
 # Define the post_image endpoint
-@image.post("/image", summary="Get image for a product", operation_id="getImage")
+@image.post("/image", summary="Get image for an electronics product", operation_id="getImage")
 async def post_image(request: Request) -> JSONResponse:
     try:
         # Parse the request body and create a Product object
@@ -44,9 +44,11 @@ async def post_image(request: Request) -> JSONResponse:
             "Content-Type": "application/json",
             "api-key": api_key
         }
+        
+        # Updated prompt for Best Buy electronics products
         payload = {
             "model": "dall-e-3",
-            "prompt": f"Generate a cute photo realistic image of a product in its packaging in front of a plain background for a product called <{name}> with a description <{description}> to be sold in an online pet supply store",
+            "prompt": f"Generate a professional product photography image of a modern electronics device called '{name}' with this description: '{description}'. The image should show the product with clean lighting against a subtle gradient background with Best Buy branding elements. Make the product the clear focus, with high detail showing its features and design. Style should be consistent with premium electronics marketing.",
             "n": 1
         }
 
